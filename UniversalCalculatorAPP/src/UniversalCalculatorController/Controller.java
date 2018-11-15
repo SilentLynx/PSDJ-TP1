@@ -29,11 +29,28 @@ public class Controller
     public void startFlow() 
     {
         try {
-            model.loadState();
+            this.model.loadState();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
         view.openLoginPage();
+    }
+    
+    public void login(String username, String password)
+    {
+        if(this.model.login(username, password))
+        {
+            this.view.openMainPage();
+        }
+        else
+        {
+            System.out.println("User não existe");
+        }
+    }
+    
+    public void exit() throws FileNotFoundException
+    {
+        this.model.saveState();
     }
     
 }

@@ -40,7 +40,7 @@ public class Users implements Serializable
         this.usersMap.put(email, u.clone());
     }
 
-    private HashMap<String, User> getUsersMap() 
+    public HashMap<String, User> getUsersMap() 
     {
         return this.usersMap;
     } 

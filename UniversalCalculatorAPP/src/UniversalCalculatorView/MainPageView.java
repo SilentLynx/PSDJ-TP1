@@ -39,7 +39,7 @@ public class MainPageView
         myFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         myFrame.setFocusTraversalPolicyProvider(true);
 
-        exitButton.setText("Sair");
+        exitButton.setText("Logout");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
