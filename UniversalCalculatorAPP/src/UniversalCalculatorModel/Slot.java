@@ -5,12 +5,17 @@
  */
 package UniversalCalculatorModel;
 
+import java.time.LocalTime;
+
 /**
  *
  * @author gcama
  */
 public class Slot 
 {
-    // Pode ser um hashmap com slots de uma hora <8, slot> <9, slot>...
+    private String nomeSlot;
+    private LocalTime inicio;
+    private LocalTime fim;
+    
     
 }
