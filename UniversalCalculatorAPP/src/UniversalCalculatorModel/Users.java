@@ -5,6 +5,7 @@
  */
 package UniversalCalculatorModel;
 
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -15,19 +16,20 @@ import java.util.HashMap;
 public class Users implements Serializable
 {   
     private HashMap<String, User> usersMap;
+    private String currentUser;
     
     public Users()
     {
         this.usersMap = new HashMap<>();
+        this.currentUser = "";
     }
     
     public Users(HashMap<String, User> map)
     {
-        this.usersMap = new HashMap<>();
-        
         map.values().stream().forEach((u) -> {
             this.usersMap.put(u.getEmail(), u.clone());
-        });
+        });   
+        this.currentUser = "";
     }
     
     public Users(Users u)
@@ -35,13 +37,29 @@ public class Users implements Serializable
         this.usersMap = u.getUsersMap();
     }
     
-    public void addUser(String email, User u)
+    public void addUser(String email, User u) throws FileNotFoundException
     {
         this.usersMap.put(email, u.clone());
+        System.out.println(this.usersMap.size());
     }
 
     public HashMap<String, User> getUsersMap() 
     {
         return this.usersMap;
     } 
+    
+    public void setCurrentUser(String username)
+    {
+        this.currentUser = username;
+    }
+    
+    public String getCurrentUser()
+    {
+        return this.currentUser;
+    }
+    
+    public User getUser(String username)
+    {
+        return this.usersMap.get(username);
+    }
 }

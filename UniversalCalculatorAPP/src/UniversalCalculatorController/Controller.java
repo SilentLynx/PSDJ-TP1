@@ -8,13 +8,13 @@ package UniversalCalculatorController;
 import UniversalCalculatorModel.Model;
 import UniversalCalculatorView.View;
 import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Controller 
 {
+    
     private Model model;
     private View view;
+    
     
     public void setModel(Model model) 
     {
@@ -28,19 +28,24 @@ public class Controller
 
     public void startFlow() 
     {
-        try {
-            this.model.loadState();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        model.loadState();
         view.openLoginPage();
     }
     
-    public void login(String username, String password)
+    public void registarUtilizador(String username, String email, String password) throws FileNotFoundException
+    { 
+        Model model = new Model();
+        model.registarUtilizador(username, email, password);
+    }
+    
+    public void login(String username, String password) throws FileNotFoundException
     {
-        if(this.model.login(username, password))
+        Model model = new Model();
+        View view = new View();
+        if(model.login(username, password))
         {
-            this.view.openMainPage();
+            view.openMainPage();
+            model.setCurrentUser(username);
         }
         else
         {

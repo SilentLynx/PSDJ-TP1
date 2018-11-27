@@ -1,5 +1,6 @@
 package UniversalCalculatorView;
 
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 
 
@@ -11,7 +12,8 @@ public class MainPageView
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    public JFrame myFrame;
+    JFrame myFrame;
+    private View view;
     // End
     /**
      * Creates new form MainPage
@@ -20,7 +22,12 @@ public class MainPageView
         this.myFrame = new JFrame("MainPageView");
         initComponents();
     }
-
+    
+    public void setView(View view)
+    {
+        this.view = view;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,8 +64,18 @@ public class MainPageView
         });
 
         jButton2.setText("UTC Calculator");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Agenda");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(myFrame.getContentPane());
         myFrame.getContentPane().setLayout(layout);
@@ -107,5 +124,16 @@ public class MainPageView
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
+    }
+    
+     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+         View view = new View();
+         view.openAgendaViewPage();
+    }
+     
+    private void jButton2ActionPerformed(ActionEvent evt) 
+    {
+        
+    }
+    
 }

@@ -5,27 +5,29 @@
  */
 package UniversalCalculatorModel;
 
+import java.io.Serializable;
+
 /**
  *
  * @author gcama
  */
-public class Contacto 
+public class Contacto implements Serializable
 {   
-    private int numTelm;
+    private String numTelm;
     private String nome;
     private String email;
 
-    public Contacto(int numTelm, String nome, String email) {
+    public Contacto(String numTelm, String nome, String email) {
         this.numTelm = numTelm;
         this.nome = nome;
         this.email = email;
     }
     
-    public int getNumTelm() {
+    public String getNumTelm() {
         return numTelm;
     }
 
-    public void setNumTelm(int numTelm) {
+    public void setNumTelm(String numTelm) {
         this.numTelm = numTelm;
     }
 
