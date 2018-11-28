@@ -36,21 +36,21 @@ public class View
     }
     
     public void openTimeZoneView()
-    {
+    {        
         this.timezoneView.setView(this);
         this.timezoneView.myFrame.setVisible(true); 
     }
     
     public void openReuniaoEdit()
-    {
+    {        
         this.reuniaoEdit.setView(this);
         this.reuniaoEdit.myFrame.setVisible(true);
     }
     
     public void openMainPage()
     {
-        mainPageView.setView(this);
-        mainPageView.myFrame.setVisible(true);       
+        this.mainPageView.setView(this);
+        this.mainPageView.myFrame.setVisible(true);       
     }
     
     public void openContactView()
@@ -67,20 +67,26 @@ public class View
     
     public void openLoginPage()
     {
-        loginView.setView(this);
+        this.loginView.setView(this);
         this.loginView.myFrame.setVisible(true);
     }
     
     public void openRegisterPage()
     {
         this.registUser.setView(this);
-        registUser.myFrame.setVisible(true);
+        this.registUser.myFrame.setVisible(true);
     }
     
     public void openAgendaViewPage()
     {
-        agendaView.setView(this);
+        this.agendaView.setView(this);
         this.agendaView.myFrame.setVisible(true);
+    }
+    
+    public void openDateTime()
+    {
+        this.dateCalcView.setView(this);
+        this.dateCalcView.myFrame.setVisible(true);
     }
     
     public void registarUtilizador(String username, String email, String password) throws FileNotFoundException

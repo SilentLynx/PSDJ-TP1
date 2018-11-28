@@ -8,6 +8,7 @@ package UniversalCalculatorController;
 import UniversalCalculatorModel.Model;
 import UniversalCalculatorView.View;
 import java.io.FileNotFoundException;
+import javax.swing.JOptionPane;
 
 public class Controller 
 {
@@ -49,7 +50,8 @@ public class Controller
         }
         else
         {
-            System.out.println("User não existe");
+            JOptionPane.showMessageDialog(null, "Username ou password errada");
+            //System.out.println("User não existe");
         }
     }
     
