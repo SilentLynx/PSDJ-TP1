@@ -133,7 +133,8 @@ public class MainPageView
      
     private void jButton2ActionPerformed(ActionEvent evt) 
     {
-        
+        View view = new View();
+        view.openTimeZoneView();
     }
     
 }

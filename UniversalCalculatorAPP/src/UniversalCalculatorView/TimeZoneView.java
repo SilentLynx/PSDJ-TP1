@@ -1,14 +1,19 @@
 package UniversalCalculatorView;
 
 import java.awt.event.ActionEvent;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 import javax.swing.JFrame;
 
 public class TimeZoneView {
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify     
+    private javax.swing.JTextField ConvertedDateTime;
     private javax.swing.JButton calcularButton;
     private org.jdesktop.swingx.JXDatePicker datePicker;
     private javax.swing.JComboBox<String> fromCB;
@@ -199,6 +204,7 @@ public class TimeZoneView {
 
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
+        this.myFrame.setVisible(false);
     }                                               
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
@@ -219,18 +225,24 @@ public class TimeZoneView {
     
     private void calcularButtonActionPerformed(ActionEvent evt) {
           Date o = this.datePicker.getDate();
-          String cbFrom = (String) this.fromCB.getSelectedItem();
-          String cbTo = (String) this.toCB.getSelectedItem();
+          //String cbFrom = (String) this.fromCB.getSelectedItem();
+          int cbFrom = Integer.parseInt((String) this.fromCB.getSelectedItem());
+          //String cbTo = (String) this.toCB.getSelectedItem();
+          int cbTo = Integer.parseInt((String) this.toCB.getSelectedItem());
           boolean check = this.jCheckBox1.isSelected();
-          String time = this.timeTF.getText();
+          //String time = this.timeTF.getText();
           LocalTime t = LocalTime.parse(this.timeTF.getText());
-          LocalDate l;
+          OffsetDateTime odt;
           
           if(check == true)
           {
-              l = o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+              odt = o.toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(Instant.now())).with(t);
           }
+          else odt = o.toInstant().atOffset(ZoneOffset.ofHours(cbFrom)).with(t);
           
-
+          LocalDateTime ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(cbTo)).toLocalDateTime();
+          
+          //this.ConvertedDateTime.setText(ldt.toString());
+          System.out.println(ldt.toString());
     }
 }
