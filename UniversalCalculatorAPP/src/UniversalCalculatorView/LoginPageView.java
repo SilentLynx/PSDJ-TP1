@@ -36,7 +36,7 @@ public class LoginPageView{
     
     public LoginPageView() {
         this.myFrame = new JFrame("LoginPageView");
-        System.out.println("Login Page Inicializada!");
+        //System.out.println("Login Page Inicializada!");
         initComponents();
     }
 
@@ -68,7 +68,7 @@ public class LoginPageView{
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Universal Calculator");
 
-        jLabel2.setText("Username");
+        jLabel2.setText("Email         ");
 
         jLabel3.setText("Password");
 
@@ -151,12 +151,12 @@ public class LoginPageView{
                                    
 
     private void newUserButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        this.myFrame.setVisible(false);
         view.openRegisterPage();
     }
     
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            //System.out.println("Verifica Login Clickado!");
             view.verificaLogin(userNameTF.getText(), passwordTF.getText());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LoginPageView.class.getName()).log(Level.SEVERE, null, ex);

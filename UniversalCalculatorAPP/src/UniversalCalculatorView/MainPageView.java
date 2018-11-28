@@ -8,7 +8,7 @@ public class MainPageView
 {
     // Variables declaration - do not modify                     
     private javax.swing.JButton exitButton;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton DateTime;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
@@ -39,7 +39,7 @@ public class MainPageView
 
         exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        DateTime = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -56,10 +56,10 @@ public class MainPageView
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
         jLabel1.setText("Universal Calculator");
 
-        jButton1.setText("Date and Time");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        DateTime.setText("Date and Time");
+        DateTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                DateTimeActionPerformed(evt);
             }
         });
 
@@ -95,7 +95,7 @@ public class MainPageView
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(DateTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,7 +104,7 @@ public class MainPageView
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62)
-                .addComponent(jButton1)
+                .addComponent(DateTime)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -120,10 +120,14 @@ public class MainPageView
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         myFrame.setVisible(false);
+        view.openLoginPage();
     }                                          
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
+    private void DateTimeActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        this.myFrame.setVisible(false);
+        View view = new View();
+        view.openDateTime();
+        
     }
     
      private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         

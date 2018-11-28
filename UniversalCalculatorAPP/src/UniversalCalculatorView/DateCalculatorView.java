@@ -5,16 +5,25 @@
  */
 package UniversalCalculatorView;
 
+import UniversalCalculatorModel.Model;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
  *
  * @author gcama
  */
-public class DateCalculatorView {
+public class DateCalculatorView{
      // Variables declaration - do not modify                     
     private javax.swing.JTextField anosTF;
     private javax.swing.JTextField answerTF;
+    private javax.swing.JTextField answerTF2;
     private javax.swing.JButton calcular2Button;
     private javax.swing.JButton calcularButton;
     private javax.swing.JTextField diasTF;
@@ -41,6 +50,7 @@ public class DateCalculatorView {
     /**
      * Creates new form DateCalculatorView
      */
+    
     public DateCalculatorView() {
         this.myFrame = new JFrame("DateCalculatorView");
         initComponents();
@@ -63,13 +73,10 @@ public class DateCalculatorView {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
-        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
         jLabel4 = new javax.swing.JLabel();
         timeCB = new javax.swing.JComboBox<>();
         calcularButton = new javax.swing.JButton();
         answerTF = new javax.swing.JTextField();
-        jXDatePicker3 = new org.jdesktop.swingx.JXDatePicker();
         jLabel5 = new javax.swing.JLabel();
         minusPlusCB = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -82,10 +89,17 @@ public class DateCalculatorView {
         diasTF = new javax.swing.JTextField();
         calcular2Button = new javax.swing.JButton();
         regressarButton = new javax.swing.JButton();
+        answerTF2 = new javax.swing.JTextField();
+        jXDatePicker1 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker2 = new org.jdesktop.swingx.JXDatePicker();
+        jXDatePicker3 = new org.jdesktop.swingx.JXDatePicker();
 
         jLabel3.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
         jLabel3.setText("Date & Time ");
 
+        answerTF.setEditable(false);
+        answerTF2.setEditable(false);
+        
         this.myFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Copperplate Gothic Light", 1, 24)); // NOI18N
@@ -93,18 +107,6 @@ public class DateCalculatorView {
 
         jLabel2.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
         jLabel2.setText("Date & Time ");
-
-        jXDatePicker1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker1ActionPerformed(evt);
-            }
-        });
-
-        jXDatePicker2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker2ActionPerformed(evt);
-            }
-        });
 
         jLabel4.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
         jLabel4.setText("Time Between Dates");
@@ -119,19 +121,17 @@ public class DateCalculatorView {
         calcularButton.setText("Calcular");
         calcularButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcularButtonActionPerformed(evt);
+                try {
+                    calcularButtonActionPerformed(evt);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(DateCalculatorView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
         answerTF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 answerTFActionPerformed(evt);
-            }
-        });
-
-        jXDatePicker3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXDatePicker3ActionPerformed(evt);
             }
         });
 
@@ -180,7 +180,11 @@ public class DateCalculatorView {
         calcular2Button.setText("Calcular");
         calcular2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                calcular2ButtonActionPerformed(evt);
+                try {
+                    calcular2ButtonActionPerformed(evt);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(DateCalculatorView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -188,6 +192,12 @@ public class DateCalculatorView {
         regressarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regressarButtonActionPerformed(evt);
+            }
+        });
+
+        answerTF2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                answerTF2ActionPerformed(evt);
             }
         });
 
@@ -210,17 +220,11 @@ public class DateCalculatorView {
                                 .addGap(78, 78, 78)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(timeCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(answerTF, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(calcularButton)
-                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel5)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(minusPlusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6)
@@ -234,7 +238,16 @@ public class DateCalculatorView {
                                             .addComponent(semanasTF)
                                             .addComponent(anosTF)
                                             .addComponent(diasTF)))
-                                    .addComponent(calcular2Button))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(calcular2Button)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(answerTF2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(timeCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(answerTF, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 41, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -250,22 +263,22 @@ public class DateCalculatorView {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(2, 2, 2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jXDatePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jXDatePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(timeCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(answerTF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(calcularButton)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(minusPlusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(minusPlusCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXDatePicker3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -283,7 +296,9 @@ public class DateCalculatorView {
                     .addComponent(jLabel9)
                     .addComponent(diasTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
-                .addComponent(calcular2Button)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(calcular2Button)
+                    .addComponent(answerTF2))
                 .addGap(28, 28, 28)
                 .addComponent(regressarButton)
                 .addContainerGap())
@@ -291,15 +306,52 @@ public class DateCalculatorView {
 
         this.myFrame.pack();
         this.myFrame.setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>                         
 
+    private void calcularButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
+            
+        Model model = new Model();
+        //Calculo em Anos
+        if(timeCB.getSelectedItem().equals("Anos")){
+            answerTF.setText(model.diferencaAnos(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+        }
+        
+        //Calculo em Meses
+        else if(timeCB.getSelectedItem().equals("Meses")){
+           answerTF.setText(model.diferencaMeses(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+        }
+        
+        //Calculo em Dias
+        else if(timeCB.getSelectedItem().equals("Dias")){
+            answerTF.setText(model.diferencaDias(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+        }
+    } 
+    
+    private void calcular2ButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
+        
+        Model model = new Model();
+        
+        int dias = 0;
+        int semanas = 0;
+        int meses = 0;
+        int anos = 0;
+        
+        if(!anosTF.getText().equals("")) anos = Integer.parseInt(anosTF.getText());
+        if(!mesesTF.getText().equals("")) meses = Integer.parseInt(mesesTF.getText());
+        if(!semanasTF.getText().equals("")) semanas = Integer.parseInt(semanasTF.getText());
+        if(!diasTF.getText().equals("")) dias = Integer.parseInt(diasTF.getText());
+        
+        if(minusPlusCB.getSelectedItem().equals("+")) answerTF2.setText(model.somaDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+        if(minusPlusCB.getSelectedItem().equals("-")) answerTF2.setText(model.subtraiDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+    }   
+    
     private void answerTFActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     }                                        
 
     private void mesesTFActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
-    }                                       
+    }   
 
     private void semanasTFActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
@@ -307,11 +359,7 @@ public class DateCalculatorView {
 
     private void diasTFActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
-    }                                      
-
-    private void calcular2ButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
-    }                                               
+    }                                            
 
     private void anosTFActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
@@ -327,11 +375,7 @@ public class DateCalculatorView {
 
     private void timeCBActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
-    }                                      
-
-    private void calcularButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
-    }                                              
+    }                                             
 
     private void jXDatePicker3ActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
@@ -339,9 +383,15 @@ public class DateCalculatorView {
 
     private void minusPlusCBActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }                                           
+    }
+    
+    private void answerTF2ActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // TODO add your handling code here:
+    }      
 
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
+        this.myFrame.setVisible(false);
+        View view = new View();
+        view.openMainPage();
     }                                               
 }
