@@ -14,7 +14,7 @@ public class UniversalCalculatorAPP
         Model model = new Model();
         View view = new View();
         Controller control = new Controller();
-        
+
         control.setModel(model);
         control.setView(view);
         control.startFlow();

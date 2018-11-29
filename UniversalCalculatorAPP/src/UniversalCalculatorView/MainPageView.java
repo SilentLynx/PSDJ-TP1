@@ -125,19 +125,16 @@ public class MainPageView
 
     private void DateTimeActionPerformed(java.awt.event.ActionEvent evt) {                                         
         this.myFrame.setVisible(false);
-        View view = new View();
         view.openDateTime();
         
     }
     
      private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-         View view = new View();
          view.openAgendaViewPage();
     }
      
     private void jButton2ActionPerformed(ActionEvent evt) 
     {
-        View view = new View();
         view.openTimeZoneView();
     }
     

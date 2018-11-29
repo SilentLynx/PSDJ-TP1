@@ -23,6 +23,13 @@ public class Contacto implements Serializable
         this.email = email;
     }
     
+    public Contacto(Contacto c)
+    {
+        this.numTelm = c.getNumTelm();
+        this.nome = c.getNome();
+        this.email = c.getEmail();
+    }
+    
     public String getNumTelm() {
         return numTelm;
     }
@@ -50,5 +57,10 @@ public class Contacto implements Serializable
     @Override
     public String toString() {
         return "Contacto{" + "numTelm=" + numTelm + ", nome=" + nome + ", email=" + email + '}';
+    }
+    
+    public Contacto clone()
+    {
+        return new Contacto(this);
     }
 }

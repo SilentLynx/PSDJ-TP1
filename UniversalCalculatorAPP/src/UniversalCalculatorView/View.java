@@ -1,13 +1,17 @@
 package UniversalCalculatorView;
 
 import UniversalCalculatorController.Controller;
+import UniversalCalculatorModel.Contacto;
 import java.io.FileNotFoundException;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
 
 public class View 
 {
-    Controller control = new Controller();
+    Controller control;
     private MainPageView mainPageView;
-    private AgendaView agendaView;
+    private final AgendaView agendaView;
     private ContactEdit contactEdit;
     private ContactosView contactosView;
     private DateCalculatorView dateCalcView;
@@ -16,8 +20,9 @@ public class View
     private ReuniaoEditView reuniaoEdit;
     private TimeZoneView timezoneView;
 
-    public View()
+    public View() throws FileNotFoundException
     {
+        this.control = new Controller();
         this.agendaView = new AgendaView();
         this.contactEdit = new ContactEdit();
         this.contactosView = new ContactosView();
@@ -56,7 +61,9 @@ public class View
     public void openContactView()
     {
         this.contactosView.setView(this);
+        List<Contacto> lista = this.control.contactosToView();
         this.contactosView.myFrame.setVisible(true);
+        this.contactosView.preencheTabela(lista);
     }
     
     public void openContactEdit()
@@ -89,14 +96,55 @@ public class View
         this.dateCalcView.myFrame.setVisible(true);
     }
     
+    public String viewToControllerAnos(Date data1, Date data2){
+        return control.controllerToModelAnos(data1, data2);
+    }
+    
+    public String viewToControllerMeses(Date data1, Date data2){
+        return control.controllerToModelMeses(data1, data2);
+    }
+    
+    public String viewToControllerDias(Date data1, Date data2){
+        return control.controllerToModelDias(data1, data2);
+    }
+    
+    public String viewToControllerSomaDateTime(Date data, int dias, int semanas, int meses, int anos){
+        return control.controllerToModelSomaDateTime(data, dias, semanas, meses, anos);
+    }
+    
+    public String viewToControllerSubtraiDateTime(Date data, int dias, int semanas, int meses, int anos){
+        return control.controllerToModelSubtraiDateTime(data, dias, semanas, meses, anos);
+    }
+    
+    public String viewToControllerTimeZone(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
+    {
+        return control.controllerToModelTimeZone(o,t,offsetFrom,offsetTo,check);
+    }
+    
     public void registarUtilizador(String username, String email, String password) throws FileNotFoundException
     {
-        control.registarUtilizador(username, email, password);
+        control.registarUtilizadorController(username, email, password);
     }
     
     public void verificaLogin(String username, String password) throws FileNotFoundException
     {
-        //System.out.println("Verifica Login da View!");
-        control.login(username, password);
+        control.login(username, password, this);
+    }
+    
+    public void addContactToController(String nome, String telf, String email)
+    {
+        System.out.println("Hello");
+        control.addContact(nome,telf,email);
+    }
+    
+    public void reloadTableContacts()
+    {
+        List<Contacto> lista = this.control.contactosToView();
+        this.contactosView.preencheTabela(lista);
+    }
+    
+    public void addReuniaoToController(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    {
+        
     }
 }

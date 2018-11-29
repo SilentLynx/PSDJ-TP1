@@ -1,6 +1,10 @@
 package UniversalCalculatorView;
 
+import UniversalCalculatorModel.Contacto;
+import java.io.FileNotFoundException;
+import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,16 +26,13 @@ public class ContactosView {
     // End of variables declaration  
     /**
      * Creates new form ContactosFrame
+     * @throws java.io.FileNotFoundException
      */
-    public ContactosView() {
+    public ContactosView() throws FileNotFoundException{
         this.myFrame = new JFrame("ContactosView");
         initComponents();
     }
 
-    public void setView(View view)
-    {
-        this.view = view;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,7 +149,7 @@ public class ContactosView {
 
     private void reunioesButtonActionPerformed(java.awt.event.ActionEvent evt) {                                               
         // TODO add your handling code here:
-        this.view.openAgendaViewPage();
+        view.openAgendaViewPage();
         this.myFrame.setVisible(false);
     }                                              
 
@@ -159,11 +160,34 @@ public class ContactosView {
 
     private void novoContactoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                   
         // TODO add your handling code here:
-        this.view.openContactEdit();
+        view.openContactEdit();
     }                                                  
 
     private void apagarContactoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-        
-    }                                                                     
+    }
+    
+    public void addContact(String nome,String telf,String email)
+    {
+        view.addContactToController(nome, telf, email);
+    }
+
+    void setView(View view) {
+        this.view = view;
+    }
+
+    void preencheTabela(List<Contacto> lista) 
+    {
+        DefaultTableModel mod = (DefaultTableModel) this.jTable1.getModel();
+        for(Contacto c : lista)
+        {
+            System.out.println(c.getNome());
+            mod.addRow(new Object[]{c.getNome(), c.getNumTelm(), c.getEmail()});
+        }
+    }
+    
+    public void reloadTable()
+    {
+        view.reloadTableContacts();
+    }
 }

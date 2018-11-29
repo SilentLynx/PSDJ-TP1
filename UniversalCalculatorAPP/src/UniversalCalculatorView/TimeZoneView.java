@@ -1,13 +1,7 @@
 package UniversalCalculatorView;
 
 import java.awt.event.ActionEvent;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Date;
 import javax.swing.JFrame;
 
@@ -64,6 +58,7 @@ public class TimeZoneView {
         calcularButton = new javax.swing.JButton();
         regressarButton = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
+        ConvertedDateTime = new javax.swing.JTextField();
 
         this.myFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,7 +88,7 @@ public class TimeZoneView {
 
         jLabel6.setText("(24 Hours, example 15:00:00)");
 
-        fromCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-12", "-11", "-10", "-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10", "+11", "+12", " ", " " }));
+        fromCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-12", "-11", "-10", "-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10", "+11", "+12" }));
         fromCB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fromCBActionPerformed(evt);
@@ -128,25 +123,25 @@ public class TimeZoneView {
             }
         });
 
+        ConvertedDateTime.setEditable(false);
+        ConvertedDateTime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConvertedDateTimeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this.myFrame.getContentPane());
         this.myFrame.getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(timeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -161,7 +156,16 @@ public class TimeZoneView {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(calcularButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
-                                .addComponent(regressarButton)))))
+                                .addComponent(regressarButton))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(ConvertedDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(timeTF, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel6)))))
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -187,7 +191,9 @@ public class TimeZoneView {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(toCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(ConvertedDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(calcularButton)
                     .addComponent(regressarButton))
@@ -196,7 +202,7 @@ public class TimeZoneView {
 
         this.myFrame.pack();
         this.myFrame.setLocationRelativeTo(null);
-    }// </editor-fold>                        
+    }// </editor-fold>      
 
     private void fromCBActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
@@ -223,26 +229,21 @@ public class TimeZoneView {
         // TODO add your handling code here:
     }  
     
+    private void ConvertedDateTimeActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+    
     private void calcularButtonActionPerformed(ActionEvent evt) {
           Date o = this.datePicker.getDate();
-          //String cbFrom = (String) this.fromCB.getSelectedItem();
-          int cbFrom = Integer.parseInt((String) this.fromCB.getSelectedItem());
-          //String cbTo = (String) this.toCB.getSelectedItem();
-          int cbTo = Integer.parseInt((String) this.toCB.getSelectedItem());
+          String cbFrom = (String) this.fromCB.getSelectedItem();
+          String cbTo = (String) this.toCB.getSelectedItem();
+          int from = Integer.parseInt(cbFrom);
+          int to = Integer.parseInt(cbTo);
           boolean check = this.jCheckBox1.isSelected();
-          //String time = this.timeTF.getText();
+          String time = this.timeTF.getText();
           LocalTime t = LocalTime.parse(this.timeTF.getText());
-          OffsetDateTime odt;
-          
-          if(check == true)
-          {
-              odt = o.toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(Instant.now())).with(t);
-          }
-          else odt = o.toInstant().atOffset(ZoneOffset.ofHours(cbFrom)).with(t);
-          
-          LocalDateTime ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(cbTo)).toLocalDateTime();
-          
-          //this.ConvertedDateTime.setText(ldt.toString());
-          System.out.println(ldt.toString());
+        
+         String res = view.control.controllerToModelTimeZone(o,t,from, to , check);
+         this.ConvertedDateTime.setText(res);
     }
 }

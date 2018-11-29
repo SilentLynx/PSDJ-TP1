@@ -5,17 +5,24 @@
  */
 package UniversalCalculatorController;
 
+import UniversalCalculatorModel.Contacto;
 import UniversalCalculatorModel.Model;
 import UniversalCalculatorView.View;
 import java.io.FileNotFoundException;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 
-public class Controller 
+public class Controller
 {
     
     private Model model;
     private View view;
-    
+
+    public Controller() throws FileNotFoundException {
+        this.model = new Model();
+    }
     
     public void setModel(Model model) 
     {
@@ -29,35 +36,70 @@ public class Controller
 
     public void startFlow() 
     {
-        model.loadState();
         view.openLoginPage();
     }
     
-    public void registarUtilizador(String username, String email, String password) throws FileNotFoundException
+    public String controllerToModelAnos(Date data1, Date data2){
+        return model.diferencaAnos(data1, data2);
+    }
+    
+    public String controllerToModelMeses(Date data1, Date data2){
+        return model.diferencaMeses(data1, data2);
+    }
+    
+    public String controllerToModelDias(Date data1, Date data2){
+        return model.diferencaDias(data1, data2);
+    }
+    
+    public String controllerToModelSomaDateTime(Date data, int dias, int semanas, int meses, int anos){
+        return model.somaDateTime(data, dias, semanas, meses, anos);
+    }
+    
+    public String controllerToModelSubtraiDateTime(Date data, int dias, int semanas, int meses, int anos){
+        return model.subtraiDateTime(data, dias, semanas, meses, anos);
+    }
+    
+    public void registarUtilizadorController(String username, String email, String password) throws FileNotFoundException
     { 
-        Model model = new Model();
         model.registarUtilizador(username, email, password);
     }
     
-    public void login(String username, String password) throws FileNotFoundException
+    public void login(String username, String password, View views) throws FileNotFoundException
     {
-        Model model = new Model();
-        View view = new View();
+        View v = views;
         if(model.login(username, password))
         {
-            view.openMainPage();
-            model.setCurrentUser(username);
+            v.openMainPage();
         }
         else
         {
             JOptionPane.showMessageDialog(null, "Username ou password errada");
-            //System.out.println("User não existe");
         }
+    }
+    
+    public String controllerToModelTimeZone(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
+    {
+        return model.timeZoneCalc(o, t, offsetFrom, offsetTo, check);
     }
     
     public void exit() throws FileNotFoundException
     {
         this.model.saveState();
+    }
+    
+    public void addContact(String nome, String telf, String email)
+    {
+        model.adicionarContact(telf, email, nome);
+    }
+    
+    public List<Contacto> contactosToView()
+    {
+        return this.model.getContactosToView();
+    }
+    
+    public void addReuniaoToModel(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    {
+       
     }
     
 }

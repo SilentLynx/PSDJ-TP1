@@ -75,7 +75,11 @@ public class LoginPageView{
         loginButton.setText("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginButtonActionPerformed(evt);
+                try {
+                    loginButtonActionPerformed(evt);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(LoginPageView.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
 
@@ -155,12 +159,8 @@ public class LoginPageView{
         view.openRegisterPage();
     }
     
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            view.verificaLogin(userNameTF.getText(), passwordTF.getText());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(LoginPageView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException{
+        view.verificaLogin(userNameTF.getText(), passwordTF.getText());
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           

@@ -5,12 +5,7 @@
  */
 package UniversalCalculatorView;
 
-import UniversalCalculatorModel.Model;
 import java.io.FileNotFoundException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -45,7 +40,7 @@ public class DateCalculatorView{
     private javax.swing.JTextField semanasTF;
     private javax.swing.JComboBox<String> timeCB;
     JFrame myFrame;
-    private View view;
+    public View view;
     // End of variables declaration                   
     /**
      * Creates new form DateCalculatorView
@@ -112,11 +107,6 @@ public class DateCalculatorView{
         jLabel4.setText("Time Between Dates");
 
         timeCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anos", "Meses", "Dias" }));
-        timeCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timeCBActionPerformed(evt);
-            }
-        });
 
         calcularButton.setText("Calcular");
         calcularButton.addActionListener(new java.awt.event.ActionListener() {
@@ -128,23 +118,11 @@ public class DateCalculatorView{
                 }
             }
         });
-
-        answerTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                answerTFActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14)); // NOI18N
-        jLabel5.setText("Date & Time Calculator");
-
+        
         minusPlusCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+", "-" }));
-        minusPlusCB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                minusPlusCBActionPerformed(evt);
-            }
-        });
 
+        jLabel5.setText("Date & Time Calculator");
+        
         jLabel6.setText("Anos");
 
         jLabel7.setText("Meses");
@@ -153,30 +131,7 @@ public class DateCalculatorView{
 
         jLabel9.setText("Dias");
 
-        anosTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anosTFActionPerformed(evt);
-            }
-        });
-
-        mesesTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mesesTFActionPerformed(evt);
-            }
-        });
-
-        semanasTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                semanasTFActionPerformed(evt);
-            }
-        });
-
-        diasTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                diasTFActionPerformed(evt);
-            }
-        });
-
+        
         calcular2Button.setText("Calcular");
         calcular2Button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,12 +147,6 @@ public class DateCalculatorView{
         regressarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regressarButtonActionPerformed(evt);
-            }
-        });
-
-        answerTF2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                answerTF2ActionPerformed(evt);
             }
         });
 
@@ -308,28 +257,25 @@ public class DateCalculatorView{
         this.myFrame.setLocationRelativeTo(null);
     }// </editor-fold>                         
 
-    private void calcularButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
-            
-        Model model = new Model();
+    private void calcularButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException  {
+        
         //Calculo em Anos
         if(timeCB.getSelectedItem().equals("Anos")){
-            answerTF.setText(model.diferencaAnos(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+            answerTF.setText(view.viewToControllerAnos(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
         }
         
         //Calculo em Meses
         else if(timeCB.getSelectedItem().equals("Meses")){
-           answerTF.setText(model.diferencaMeses(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+           answerTF.setText(view.viewToControllerMeses(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
         }
         
         //Calculo em Dias
         else if(timeCB.getSelectedItem().equals("Dias")){
-            answerTF.setText(model.diferencaDias(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+            answerTF.setText(view.viewToControllerDias(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
         }
     } 
     
     private void calcular2ButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
-        
-        Model model = new Model();
         
         int dias = 0;
         int semanas = 0;
@@ -341,57 +287,12 @@ public class DateCalculatorView{
         if(!semanasTF.getText().equals("")) semanas = Integer.parseInt(semanasTF.getText());
         if(!diasTF.getText().equals("")) dias = Integer.parseInt(diasTF.getText());
         
-        if(minusPlusCB.getSelectedItem().equals("+")) answerTF2.setText(model.somaDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
-        if(minusPlusCB.getSelectedItem().equals("-")) answerTF2.setText(model.subtraiDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
-    }   
-    
-    private void answerTFActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        // TODO add your handling code here:
-    }                                        
-
-    private void mesesTFActionPerformed(java.awt.event.ActionEvent evt) {                                        
-        // TODO add your handling code here:
-    }   
-
-    private void semanasTFActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }                                         
-
-    private void diasTFActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                            
-
-    private void anosTFActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                      
-
-    private void jXDatePicker1ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void jXDatePicker2ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void timeCBActionPerformed(java.awt.event.ActionEvent evt) {                                       
-        // TODO add your handling code here:
-    }                                             
-
-    private void jXDatePicker3ActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
-    }                                             
-
-    private void minusPlusCBActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }
-    
-    private void answerTF2ActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        // TODO add your handling code here:
-    }      
+        if(minusPlusCB.getSelectedItem().equals("+")) answerTF2.setText(view.viewToControllerSomaDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+        if(minusPlusCB.getSelectedItem().equals("-")) answerTF2.setText(view.viewToControllerSubtraiDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+    }     
 
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                
         this.myFrame.setVisible(false);
-        View view = new View();
         view.openMainPage();
     }                                               
 }

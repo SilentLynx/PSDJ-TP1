@@ -66,7 +66,7 @@ public class Agenda implements Serializable
     {
         Contacto c = new Contacto(numTelm, nome, email);
         
-        this.contactos.add(c);
+        this.contactos.add(c.clone());
     }
     
     public void removeContact(Contacto c)

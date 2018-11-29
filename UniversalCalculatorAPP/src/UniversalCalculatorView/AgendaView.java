@@ -1,12 +1,16 @@
 package UniversalCalculatorView;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JFrame;
 
 /**
  *
  * @author gcama
  */
-public class AgendaView {
+public class AgendaView{
         // Variables declaration - do not modify                     
     private javax.swing.JButton apagarReuniaoButton;
     private javax.swing.JLabel jLabel1;
@@ -166,5 +170,14 @@ public class AgendaView {
 
     private void novaReuniaoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         view.openReuniaoEdit();
-    }                                                              
+    }
+    
+    public void addNovaReuniao(Date o, String nome, String local, String hora, String tamSlot, String numSlots)
+    {
+        LocalTime t = LocalTime.parse(hora);
+        int minutos = Integer.parseInt(tamSlot);
+        int num = Integer.parseInt(numSlots);
+        
+        view.addReuniaoToController(o,nome ,local, t, minutos, num);
+    }
 }

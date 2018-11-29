@@ -1,8 +1,9 @@
 package UniversalCalculatorView;
 
+import java.io.FileNotFoundException;
 import javax.swing.JFrame;
 
-public class ContactEdit {
+public class ContactEdit extends ContactosView{
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton acceptButton;
@@ -14,21 +15,15 @@ public class ContactEdit {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    JFrame myFrame;
-     private View view;
-    // End of variables declaration     
+    JFrame myFrame; 
     /**
      * Creates new form ContactoEditView
      */
-    public ContactEdit() {
+    public ContactEdit() throws FileNotFoundException {
         this.myFrame = new JFrame("ContactoEdit");
         initComponents();
     }
 
-    public void setView(View view)
-    {
-        this.view = view;
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,9 +164,17 @@ public class ContactEdit {
 
     private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
         // TODO add your handling code here:
+       String nome = this.jTextField1.getText();
+       String telf = this.jTextField2.getText();
+       String email = this.jTextField3.getText();
+       super.addContact(nome, telf, email);
+       this.myFrame.setVisible(false);
+       super.reloadTable();
+       
     }                                            
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {                                             
-        // TODO add your handling code here:
+        this.myFrame.setVisible(false);
+        
     }                                                          
 }

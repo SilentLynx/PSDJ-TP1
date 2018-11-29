@@ -38,8 +38,9 @@ public class UniversalCalculatorData
        }        
     }
     
-    public static Users loadUsers(String nomeFicheiro, Users users) throws FileNotFoundException
-    {       
+    public static Users loadUsers(String nomeFicheiro) throws FileNotFoundException
+    {   
+       Users users = new Users();
        try
        {
            File toRead = new File(nomeFicheiro);

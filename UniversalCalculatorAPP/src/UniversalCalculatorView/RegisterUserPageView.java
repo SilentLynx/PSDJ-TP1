@@ -154,6 +154,7 @@ public class RegisterUserPageView{
     private void registButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
         view.registarUtilizador(usernameTF.getText(), emailTF.getText(), passwordTF.getText());
         this.myFrame.setVisible(false);
+        view.openLoginPage();
     }
     
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                

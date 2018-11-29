@@ -2,6 +2,7 @@ package UniversalCalculatorModel;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +38,7 @@ public class User implements Serializable
         this.nome = nome;
         this.email = email;
         this.password = password;
+        this.agenda = new Agenda();
     }
 
     public User(User u)
@@ -44,6 +46,12 @@ public class User implements Serializable
         this.nome = u.getNome();
         this.email = u.getEmail();
         this.password = u.getPassword();
+        this.agenda = u.getAgenda();
+    }
+    
+    private Agenda getAgenda() 
+    {
+        return this.agenda;
     }
     
     public String getNome() {
@@ -74,22 +82,14 @@ public class User implements Serializable
     {
         Contacto c = new Contacto(numTelm,email,nome);
         
-        if(option.equals("Editar"))
+        if(option.equals("Adicionar"))
         {
-            this.agenda.removeContact(c);
-            this.agenda.addContact(numTelm, nome, email);
+             this.agenda.addContact(numTelm, nome, email);
         }
         else
         {
-            if(option.equals("Adicionar"))
-            {
-                this.agenda.addContact(numTelm, nome, email);
-            }
-            else
-            {
-                this.agenda.removeContact(c);
+            this.agenda.removeContact(c);
 
-            }
         }
     }
     
@@ -105,9 +105,14 @@ public class User implements Serializable
         
     }
     
-    public void editSlot()
+    public List<Contacto> getContactos()
     {
-        
+        return this.agenda.getContactosList();
+    }
+    
+    public void addReuniaoUser(LocalDateTime data, LocalTime inicio, LocalTime fim, String nome, String local)
+    {
+        this.agenda.addSlot(data, inicio, fim, nome, local);
     }
     
     public User clone()
