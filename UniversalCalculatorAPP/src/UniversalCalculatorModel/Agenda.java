@@ -7,6 +7,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Agenda implements Serializable
 {
@@ -24,6 +25,7 @@ public class Agenda implements Serializable
         this.contactos = new ArrayList<>();
     }
 
+    // Métodos de get e set
     public HashMap<LocalDateTime, Slot> getSlots() 
     {
         HashMap<LocalDateTime, Slot> slot = new HashMap<>();
@@ -56,7 +58,9 @@ public class Agenda implements Serializable
         
         return lista;
     }
-       
+    ///////////////////////////////////////////////////
+    
+    // Método Para adicionar reunião
     public void addSlot(LocalDateTime diaHora, LocalTime horaInicio, LocalTime horaFim, String nome, String local)
     {
         LocalDate dat = diaHora.toLocalDate();
@@ -65,6 +69,7 @@ public class Agenda implements Serializable
         this.slots.put(diaHora, s.clone());
     }
     
+    // Método para remover reunião
     public void removeSlot(LocalDateTime diaHora, String nome, LocalTime fim)
     {
         Slot s = this.slots.get(diaHora);
@@ -75,6 +80,7 @@ public class Agenda implements Serializable
         }
     }
         
+    // Método para adicionar contacto
     public void addContact(String numTelm, String nome, String email)
     {
         Contacto c = new Contacto(numTelm, nome, email);
@@ -82,15 +88,18 @@ public class Agenda implements Serializable
         this.contactos.add(c.clone());
     }
     
+    // Método para remover Contacto
     public void removeContact(String nom, String numT, String email)
     {
         Contacto cont = new Contacto(nom,numT,email);
-        this.contactos.stream().filter((c) -> (c.equals(cont))).forEach((c) -> {
-            this.contactos.remove(c);
-        });
-
+        List<Contacto> lista = this.contactos.stream()
+                                             .filter(c -> !c.equals(cont))
+                                             .collect(Collectors.toList());
+        
+        this.setContactos(lista);
     }
     
+    // Método para obter as reuniões que ainda não ocorreram (a partir do dia de hoje)
     public HashMap<LocalDateTime, Slot> getSlotsPDia(LocalDateTime hoje)
     {
         HashMap<LocalDateTime, Slot> map = new HashMap<>();
@@ -102,7 +111,4 @@ public class Agenda implements Serializable
         
         return map;
     }
-        
-    
-    
 }

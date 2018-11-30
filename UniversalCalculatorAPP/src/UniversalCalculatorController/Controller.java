@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UniversalCalculatorController;
 
 import UniversalCalculatorModel.Contacto;
@@ -19,7 +14,6 @@ import javax.swing.JOptionPane;
 
 public class Controller
 {
-    
     private Model model;
     private View view;
 
@@ -27,6 +21,7 @@ public class Controller
         this.model = new Model();
     }
     
+    // Métodos set
     public void setModel(Model model) 
     {
         this.model = model;
@@ -36,12 +31,16 @@ public class Controller
     {
         this.view = view;
     }
-
+    ///////////////////////////////////////////////////
+    
+    // Start Flow da aplicação
     public void startFlow() 
     {
         view.openLoginPage();
     }
+    ///////////////////////////////////////////////////
     
+    // Parte Controlador respectiva à Calculadora de tempos
     public String controllerToModelAnos(Date data1, Date data2){
         return model.diferencaAnos(data1, data2);
     }
@@ -61,12 +60,51 @@ public class Controller
     public String controllerToModelSubtraiDateTime(Date data, int dias, int semanas, int meses, int anos){
         return model.subtraiDateTime(data, dias, semanas, meses, anos);
     }
+    ///////////////////////////////////////////////////
     
-    public void registarUtilizadorController(String username, String email, String password) throws FileNotFoundException
-    { 
-        model.registarUtilizador(username, email, password);
+     
+    // Métodos do calculo de tempo por zona UTC
+    public String controllerToModelTimeZone(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
+    {
+        return model.timeZoneCalc(o, t, offsetFrom, offsetTo, check);
+    }
+    ///////////////////////////////////////////////////
+   
+    // Métodos da agenda
+    // Contactos
+    public void addContact(String nome, String telf, String email)
+    {
+        model.adicionarContact(telf, email, nome);
     }
     
+    public void deleteContact(String nome, String telf, String email)
+    {
+        this.model.removerContact(telf, email, nome);
+    }
+    
+    public List<Contacto> contactosToView()
+    {
+        return this.model.getContactosToView();
+    }
+    
+    // Reuniões
+    public void addReuniaoToModel(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    {
+        this.model.addReuniao(o, nome, local, hora, tamSlot, numSlots);
+    }
+    
+    public void deleteReuniaoToModel(Date o, String nome, LocalTime inicio, LocalTime fim)
+    {
+        this.model.deleteReuniaoModel(o, nome, inicio, fim);
+    }
+        
+    public List<Slot> reunioesToView()
+    {
+        return this.model.reunioesParaODia();
+    }
+    ///////////////////////////////////////////////////
+    
+    // Métodos de controlo dos utilizadores
     public void login(String username, String password, View views) throws FileNotFoundException
     {
         View v = views;
@@ -80,12 +118,12 @@ public class Controller
         }
     }
     
-    public String controllerToModelTimeZone(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
-    {
-        return model.timeZoneCalc(o, t, offsetFrom, offsetTo, check);
+    public void registarUtilizadorController(String username, String email, String password) throws FileNotFoundException
+    { 
+        model.registarUtilizador(username, email, password);
     }
     
-    public void exit() 
+     public void exit() 
     {
         try {
             this.model.saveState();
@@ -93,36 +131,5 @@ public class Controller
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void addContact(String nome, String telf, String email)
-    {
-        model.adicionarContact(telf, email, nome);
-    }
-    
-    public void deleteContact(String nome, String telf, String email)
-    {
-        model.removerContact(telf, email, nome);
-    }
-    
-    public List<Contacto> contactosToView()
-    {
-        return this.model.getContactosToView();
-    }
-    
-    public void addReuniaoToModel(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
-    {
-        System.out.println("Nome no Controller: " + nome);
-        this.model.addReuniao(o, nome, local, hora, tamSlot, numSlots);
-    }
-    
-    public void deleteReuniaoToModel(Date o, String nome, LocalTime inicio, LocalTime fim)
-    {
-        this.model.deleteReuniaoModel(o, nome, inicio, fim);
-    }
-        
-    public List<Slot> reunioesToView()
-    {
-        return this.model.reunioesParaODia();
-    }
-    
+    ///////////////////////////////////////////////////
 }

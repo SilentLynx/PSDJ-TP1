@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- *
- * @author gcama
- */
 public class Slot implements Serializable
 {
     private String nomeSlot;
@@ -71,6 +62,11 @@ public class Slot implements Serializable
         this.fim = fim;
     }
     
+    public LocalDate getData() 
+    {
+        return this.data;
+    }
+    
     public void editSlot(String nomeSlot, String local, LocalDate dat, LocalTime inicio, LocalTime fim)
     {
         this.nomeSlot = nomeSlot;
@@ -88,10 +84,5 @@ public class Slot implements Serializable
     public Slot clone()
     {
         return new Slot(this);
-    }
-
-    public LocalDate getData() 
-    {
-        return this.data;
     }
 }

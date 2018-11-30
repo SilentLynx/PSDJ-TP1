@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
 
-/**
- *
- * @author gcama
- */
 public class Contacto implements Serializable
 {   
     private String numTelm;
@@ -30,6 +21,7 @@ public class Contacto implements Serializable
         this.email = c.getEmail();
     }
     
+    // Métodos de get e set
     public String getNumTelm() {
         return numTelm;
     }
@@ -53,14 +45,32 @@ public class Contacto implements Serializable
     public void setEmail(String email) {
         this.email = email;
     } 
+    ///////////////////////////////////////////////////
     
     @Override
     public String toString() {
         return "Contacto{" + "numTelm=" + numTelm + ", nome=" + nome + ", email=" + email + '}';
     }
     
+    @Override
     public Contacto clone()
     {
         return new Contacto(this);
+    }
+    
+    @Override
+    public boolean equals(Object o)
+    {
+        boolean retorno = false;
+        if(o==this)
+        {
+            retorno = true;
+        }
+        if(o == null || this.getClass() != o.getClass())
+        {
+            retorno = false;
+        }
+        Contacto c = (Contacto) o;
+        return (c.getNome().equals(this.getNome()) && c.getNumTelm().equals(this.getNumTelm()) && c.getEmail().equals(this.getEmail()));
     }
 }

@@ -1,7 +1,6 @@
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -9,10 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- *
- * @author gcama
- */
 public class User implements Serializable
 {   
     private String nome;
@@ -80,9 +75,7 @@ public class User implements Serializable
     }
 
     public void editContact(String option,String numTelm, String email, String nome) 
-    {
-        Contacto c = new Contacto(numTelm,email,nome);
-        
+    {        
         if(option.equals("Adicionar"))
         {
              this.agenda.addContact(numTelm, nome, email);

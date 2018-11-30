@@ -31,6 +31,7 @@ public final class Model
         return users;
     }
     
+    // Métodos para guardar e carregar o estado da aplicação. Invocam métodos do UniversalCalculatorData
     public void loadState() 
     {
         try {
@@ -45,7 +46,9 @@ public final class Model
     {
         UniversalCalculatorData.saveUsers("Users", this.users);
     }
+    ///////////////////////////////////////////////////
     
+    // Métodos de controlo de sessão do utilizador
     public void registarUtilizador(String username, String email, String password) 
     {
         try {
@@ -72,26 +75,31 @@ public final class Model
         }
         return ret;
     }
+    ///////////////////////////////////////////////////
     
-    public void editContact(String numTelm, String email, String nome)
-    {
-       this.users.getUser(this.currentUser).editContact("Editar",numTelm,email,nome);
-    }
-    
+    // Métodos para adicionar contactos ao utilizador
     public void adicionarContact(String numTelm, String email, String nome)
     {
-       System.out.println("User " + this.currentUser);
        this.users.getUser(this.currentUser).editContact("Adicionar",numTelm,email,nome);
-       this.users.getUser((this.currentUser)).getContactos().stream().forEach((c) -> {
-           System.out.println(c.toString());
-        });
+       try {
+            this.saveState();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void removerContact(String numTelm, String email, String nome)
     {      
        this.users.getUser(this.currentUser).editContact("Remover",numTelm,email,nome);
+        try {
+            this.saveState();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    ///////////////////////////////////////////////////
     
+    // Métodos relativos ao cálculo de datas
     //Calculo da diferenca de Anos
     public String diferencaAnos(Date data1, Date data2){
         
@@ -144,6 +152,53 @@ public final class Model
         
         return resultado.toString();
     }
+    ///////////////////////////////////////////////////
+
+    // Método para calculo do time zone
+    public String timeZoneCalc(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
+    {
+        return TimeZone.calcular(o, t,offsetFrom ,offsetTo, check);
+    }
+    ///////////////////////////////////////////////////
+    
+    // Métodos para guardar e obter contactos e reuniões (Agenda)
+    // Contactos
+    public List<Contacto> getContactosToView()
+    {
+        List<Contacto> contactos = new ArrayList<>();
+        
+        contactos = this.users.getUser(this.currentUser).getContactos();
+        
+        return contactos;
+    }
+        
+    // Reuniões
+    public void addReuniao(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    {
+         LocalDate date = o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+         LocalDateTime diaHora = LocalDateTime.of(date, hora);
+         LocalTime fim = hora.plusMinutes(numSlots*tamSlot);
+        
+         this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
+        // List<Slot> size = this.users.getUser(this.currentUser).getReunioesParaDia(diaHora);
+         try {
+            this.saveState();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void deleteReuniaoModel(Date o, String nome, LocalTime inicio, LocalTime fim)
+    {
+        LocalDate d =  o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime a = LocalDateTime.of(d,inicio);
+        this.users.getUser(this.currentUser).apagaReuniaoUser(a, nome, fim);
+        try {
+            this.saveState();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     public List<Slot> reunioesParaODia()
     {
@@ -153,38 +208,5 @@ public final class Model
         list = u.getReunioesParaDia(LocalDateTime.now());
         
         return list;
-    }
-    
-    public String timeZoneCalc(Date o, LocalTime t, int offsetFrom, int offsetTo, boolean check)
-    {
-        return TimeZone.calcular(o, t,offsetFrom ,offsetTo, check);
-    }
-    
-    public List<Contacto> getContactosToView()
-    {
-        List<Contacto> contactos = new ArrayList<>();
-        
-        contactos = this.users.getUser(this.currentUser).getContactos();
-        
-        return contactos;
-    }
-    
-    public void addReuniao(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
-    {
-         LocalDate date = o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-         LocalDateTime diaHora = LocalDateTime.of(date, hora);
-         LocalTime fim = hora.plusMinutes(numSlots*tamSlot);
-        
-         System.out.println("Nome no model: "+nome);
-         this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
-         List<Slot> size = this.users.getUser(this.currentUser).getReunioesParaDia(diaHora);
-         System.out.println("Tamanho " + size.size());
-    }
-    
-    public void deleteReuniaoModel(Date o, String nome, LocalTime inicio, LocalTime fim)
-    {
-        LocalDate d =  o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDateTime a = LocalDateTime.of(d,inicio);
-        this.users.getUser(this.currentUser).apagaReuniaoUser(a, nome, fim);
     }
 }

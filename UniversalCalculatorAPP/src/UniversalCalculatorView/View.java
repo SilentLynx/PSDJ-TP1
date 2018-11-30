@@ -7,7 +7,6 @@ import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 import java.util.List;
 
@@ -66,8 +65,8 @@ public abstract class View
     {
         this.contactosView.setView(this);
         List<Contacto> lista = this.control.contactosToView();
-        this.contactosView.myFrame.setVisible(true);
         this.contactosView.preencheTabela(lista);
+        this.contactosView.myFrame.setVisible(true);
     }
     
     public void openContactEdit()
@@ -92,8 +91,8 @@ public abstract class View
     {
         this.agendaView.setView(this);
         List<Slot> lista = this.control.reunioesToView();
-        this.agendaView.myFrame.setVisible(true);
         this.agendaView.preencheTabela(lista);
+        this.agendaView.myFrame.setVisible(true);
     }
     
     public void openDateTime()
@@ -139,13 +138,11 @@ public abstract class View
     
     public void addContactToController(String nome, String telf, String email)
     {
-        System.out.println("Hello");
         control.addContact(nome,telf,email);
     }
     
     public void addReuniaoToController(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
     {
-        System.out.println("Nome na view "+ nome);
         control.addReuniaoToModel(o, nome, local, hora, tamSlot, numSlots);
     }
     
@@ -158,7 +155,6 @@ public abstract class View
     public void reloadTableReunioes()
     {
         List<Slot> lista = this.control.reunioesToView();
-        System.out.println("Mandei fazer reload view");
         this.agendaView.preencheTabela(lista);
     }
     
