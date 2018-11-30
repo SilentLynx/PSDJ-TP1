@@ -2,12 +2,16 @@ package UniversalCalculatorView;
 
 import UniversalCalculatorController.Controller;
 import UniversalCalculatorModel.Contacto;
+import UniversalCalculatorModel.Slot;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.localDate;
 import java.util.Date;
 import java.util.List;
 
-public class View 
+public abstract class View 
 {
     Controller control;
     private MainPageView mainPageView;
@@ -87,7 +91,9 @@ public class View
     public void openAgendaViewPage()
     {
         this.agendaView.setView(this);
+        List<Slot> lista = this.control.reunioesToView();
         this.agendaView.myFrame.setVisible(true);
+        this.agendaView.preencheTabela(lista);
     }
     
     public void openDateTime()
@@ -137,14 +143,38 @@ public class View
         control.addContact(nome,telf,email);
     }
     
+    public void addReuniaoToController(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    {
+        System.out.println("Nome na view "+ nome);
+        control.addReuniaoToModel(o, nome, local, hora, tamSlot, numSlots);
+    }
+    
+    public void apagaReuniaoToController(LocalDate o, String nome, LocalTime inicio, LocalTime fim)
+    {
+        Date date = Date.from(o.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        control.deleteReuniaoToModel(date, nome, inicio, fim);
+    }
+    
+    public void reloadTableReunioes()
+    {
+        List<Slot> lista = this.control.reunioesToView();
+        System.out.println("Mandei fazer reload view");
+        this.agendaView.preencheTabela(lista);
+    }
+    
     public void reloadTableContacts()
     {
         List<Contacto> lista = this.control.contactosToView();
         this.contactosView.preencheTabela(lista);
     }
     
-    public void addReuniaoToController(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    public void exitToController()
     {
-        
+        this.control.exit();
+    }
+
+    void deleteContactToController(String nome, String telf, String email) 
+    {
+        this.control.deleteContact(nome, telf, email);
     }
 }

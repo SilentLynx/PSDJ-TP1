@@ -12,7 +12,7 @@ public class UniversalCalculatorAPP
     public static void main(String[] args) throws FileNotFoundException 
     {
         Model model = new Model();
-        View view = new View();
+        View view = new View() {};
         Controller control = new Controller();
 
         control.setModel(model);

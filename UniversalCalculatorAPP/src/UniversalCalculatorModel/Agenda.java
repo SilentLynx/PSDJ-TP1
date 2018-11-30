@@ -1,6 +1,7 @@
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -23,16 +24,22 @@ public class Agenda implements Serializable
         this.contactos = new ArrayList<>();
     }
 
-    public HashMap<LocalDateTime, Slot> getSlots() {
-        return this.slots;
+    public HashMap<LocalDateTime, Slot> getSlots() 
+    {
+        HashMap<LocalDateTime, Slot> slot = new HashMap<>();
+        slot = this.slots;
+        return slot;
     }
 
-    public void setSlots(HashMap<LocalDateTime, Slot> slots) {
-        this.slots = slots;
+    public void setSlots(HashMap<LocalDateTime, Slot> slot) {
+        this.slots = slot;
     }
 
-    public List<Contacto> getContactos() {
-        return this.contactos;
+    public List<Contacto> getContactos() 
+    {
+        List<Contacto> lista = new ArrayList<>();
+        lista = this.contactos;
+        return lista;
     }
 
     public void setContactos(List<Contacto> contactos) {
@@ -52,14 +59,20 @@ public class Agenda implements Serializable
        
     public void addSlot(LocalDateTime diaHora, LocalTime horaInicio, LocalTime horaFim, String nome, String local)
     {
-        Slot s = new Slot(nome, local, horaInicio, horaFim);
+        LocalDate dat = diaHora.toLocalDate();
+        Slot s = new Slot(nome, local, dat, horaInicio, horaFim);
         
         this.slots.put(diaHora, s.clone());
     }
     
-    public void removeSlot(LocalDateTime diaHora)
+    public void removeSlot(LocalDateTime diaHora, String nome, LocalTime fim)
     {
-        this.slots.remove(diaHora);
+        Slot s = this.slots.get(diaHora);
+        
+        if(s.getNomeSlot().equals(nome) && s.getFim().equals(fim))
+        {
+            this.slots.remove(diaHora);
+        }
     }
         
     public void addContact(String numTelm, String nome, String email)
@@ -69,9 +82,13 @@ public class Agenda implements Serializable
         this.contactos.add(c.clone());
     }
     
-    public void removeContact(Contacto c)
+    public void removeContact(String nom, String numT, String email)
     {
-        this.contactos.remove(c);
+        Contacto cont = new Contacto(nom,numT,email);
+        this.contactos.stream().filter((c) -> (c.equals(cont))).forEach((c) -> {
+            this.contactos.remove(c);
+        });
+
     }
     
     public HashMap<LocalDateTime, Slot> getSlotsPDia(LocalDateTime hoje)
@@ -79,7 +96,7 @@ public class Agenda implements Serializable
         HashMap<LocalDateTime, Slot> map = new HashMap<>();
         
         this.slots.keySet().stream().filter((key) -> (key.toLocalDate().isEqual(hoje.toLocalDate()) || key.toLocalDate().isAfter(hoje.toLocalDate()))).forEach((key) -> {
-            Slot s = this.slots.get(key);
+            Slot s = this.slots.get(key).clone();
             map.put(key,s);
         });
         

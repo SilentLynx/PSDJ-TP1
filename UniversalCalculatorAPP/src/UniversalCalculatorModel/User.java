@@ -1,6 +1,7 @@
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class User implements Serializable
         }
         else
         {
-            this.agenda.removeContact(c);
+            this.agenda.removeContact(nome,numTelm,email);
 
         }
     }
@@ -112,7 +113,13 @@ public class User implements Serializable
     
     public void addReuniaoUser(LocalDateTime data, LocalTime inicio, LocalTime fim, String nome, String local)
     {
+        System.out.println("Nome no User: "+nome);
         this.agenda.addSlot(data, inicio, fim, nome, local);
+    }
+    
+    public void apagaReuniaoUser(LocalDateTime data, String nome, LocalTime fim)
+    {
+        this.agenda.removeSlot(data,nome,fim);
     }
     
     public User clone()

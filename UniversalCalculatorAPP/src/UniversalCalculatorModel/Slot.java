@@ -6,6 +6,7 @@
 package UniversalCalculatorModel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -16,13 +17,15 @@ public class Slot implements Serializable
 {
     private String nomeSlot;
     private String local;
+    private LocalDate data;
     private LocalTime inicio;
     private LocalTime fim;
 
-    public Slot(String nomeSlot, String local, LocalTime inicio, LocalTime fim) 
+    public Slot(String nomeSlot, String local, LocalDate dat, LocalTime inicio, LocalTime fim) 
     {
         this.nomeSlot = nomeSlot;
         this.local = local;
+        this.data = dat;
         this.inicio = inicio;
         this.fim = fim;
     }
@@ -31,12 +34,13 @@ public class Slot implements Serializable
     {
         this.nomeSlot = s.getLocal();
         this.local = s.getLocal();
+        this.data = s.getData();
         this.inicio = s.getInicio();
         this.fim = s.getFim();
     }
         
     public String getNomeSlot() {
-        return nomeSlot;
+        return this.nomeSlot;
     }
 
     public void setNomeSlot(String nomeSlot) {
@@ -44,7 +48,7 @@ public class Slot implements Serializable
     }
 
     public String getLocal() {
-        return local;
+        return this.local;
     }
 
     public void setLocal(String local) {
@@ -67,10 +71,11 @@ public class Slot implements Serializable
         this.fim = fim;
     }
     
-    public void editSlot(String nomeSlot, String local, LocalTime inicio, LocalTime fim)
+    public void editSlot(String nomeSlot, String local, LocalDate dat, LocalTime inicio, LocalTime fim)
     {
         this.nomeSlot = nomeSlot;
         this.local = local;
+        this.data = dat;
         this.inicio = inicio;
         this.fim = fim;
     }
@@ -83,5 +88,10 @@ public class Slot implements Serializable
     public Slot clone()
     {
         return new Slot(this);
+    }
+
+    public LocalDate getData() 
+    {
+        return this.data;
     }
 }

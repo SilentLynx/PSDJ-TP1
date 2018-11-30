@@ -53,6 +53,7 @@ public class UniversalCalculatorData
        }
        catch(IOException | ClassNotFoundException e)
        {
+           e.printStackTrace();
        } 
        
        return users;

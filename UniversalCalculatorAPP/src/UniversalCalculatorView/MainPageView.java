@@ -120,6 +120,7 @@ public class MainPageView
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
         myFrame.setVisible(false);
+        view.exitToController();
         view.openLoginPage();
     }                                          
 

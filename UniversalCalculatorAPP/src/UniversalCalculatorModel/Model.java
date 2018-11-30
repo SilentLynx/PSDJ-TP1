@@ -82,6 +82,9 @@ public final class Model
     {
        System.out.println("User " + this.currentUser);
        this.users.getUser(this.currentUser).editContact("Adicionar",numTelm,email,nome);
+       this.users.getUser((this.currentUser)).getContactos().stream().forEach((c) -> {
+           System.out.println(c.toString());
+        });
     }
     
     public void removerContact(String numTelm, String email, String nome)
@@ -145,11 +148,9 @@ public final class Model
     public List<Slot> reunioesParaODia()
     {
         List<Slot> list = new ArrayList<>();
-        
-        LocalDateTime hoje = LocalDateTime.now();
-        
+                
         User u = this.users.getUser(this.currentUser);
-        list = u.getReunioesParaDia(hoje);
+        list = u.getReunioesParaDia(LocalDateTime.now());
         
         return list;
     }
@@ -174,8 +175,16 @@ public final class Model
          LocalDateTime diaHora = LocalDateTime.of(date, hora);
          LocalTime fim = hora.plusMinutes(numSlots*tamSlot);
         
+         System.out.println("Nome no model: "+nome);
          this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
          List<Slot> size = this.users.getUser(this.currentUser).getReunioesParaDia(diaHora);
          System.out.println("Tamanho " + size.size());
+    }
+    
+    public void deleteReuniaoModel(Date o, String nome, LocalTime inicio, LocalTime fim)
+    {
+        LocalDate d =  o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDateTime a = LocalDateTime.of(d,inicio);
+        this.users.getUser(this.currentUser).apagaReuniaoUser(a, nome, fim);
     }
 }
