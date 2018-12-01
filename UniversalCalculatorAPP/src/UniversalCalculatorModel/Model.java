@@ -180,7 +180,6 @@ public final class Model
          LocalTime fim = hora.plusMinutes(numSlots*tamSlot);
         
          this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
-        // List<Slot> size = this.users.getUser(this.currentUser).getReunioesParaDia(diaHora);
          try {
             this.saveState();
         } catch (FileNotFoundException ex) {
@@ -204,13 +203,9 @@ public final class Model
     {
         List<Slot> list = new ArrayList<>();
                 
-        
         User u = this.users.getUser(this.currentUser);
         list = u.getReunioesParaDia(LocalDateTime.now());
-        if(list.size() > 0)
-        {
-            System.out.println("Nome user no Model: " + list.get(0).getNomeSlot());
-        }
+     
         return list;
     }
 }

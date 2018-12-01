@@ -187,7 +187,7 @@ public class AgendaView{
         LocalTime t = LocalTime.parse(hora);
         int minutos = Integer.parseInt(tamSlot);
         int num = Integer.parseInt(numSlots);
-        System.out.println(nome);
+
         view.addReuniaoToController(o,nome ,local, t, minutos, num);
     }
     

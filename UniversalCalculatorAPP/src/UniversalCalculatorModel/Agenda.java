@@ -65,7 +65,7 @@ public class Agenda implements Serializable
     {
         LocalDate dat = diaHora.toLocalDate();
         Slot s = new Slot(nome, local, dat, horaInicio, horaFim);
-        
+        System.out.println("Nome na agenda: " + nome);
         this.slots.put(diaHora, s.clone());
     }
     

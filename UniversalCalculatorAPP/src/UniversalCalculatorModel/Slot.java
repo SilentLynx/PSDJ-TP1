@@ -28,7 +28,7 @@ public class Slot implements Serializable
 
     public Slot(Slot s)
     {
-        this.nomeSlot = s.getLocal();
+        this.nomeSlot = s.getNomeSlot();
         this.local = s.getLocal();
         this.data = s.getData();
         this.inicio = s.getInicio();
