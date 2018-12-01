@@ -12,6 +12,11 @@ public class Slot implements Serializable
     private LocalTime inicio;
     private LocalTime fim;
 
+    public static Slot of (String nomeSlot, String local, LocalDate dat, LocalTime inicio, LocalTime fim)
+    {
+        return new Slot(nomeSlot, local,dat,inicio,fim);
+    }
+    
     public Slot(String nomeSlot, String local, LocalDate dat, LocalTime inicio, LocalTime fim) 
     {
         this.nomeSlot = nomeSlot;

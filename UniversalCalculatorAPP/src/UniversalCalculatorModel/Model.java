@@ -204,9 +204,13 @@ public final class Model
     {
         List<Slot> list = new ArrayList<>();
                 
+        
         User u = this.users.getUser(this.currentUser);
         list = u.getReunioesParaDia(LocalDateTime.now());
-        
+        if(list.size() > 0)
+        {
+            System.out.println("Nome user no Model: " + list.get(0).getNomeSlot());
+        }
         return list;
     }
 }

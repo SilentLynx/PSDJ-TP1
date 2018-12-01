@@ -82,6 +82,7 @@ public class User implements Serializable
         }
         else
         {
+            System.out.println("Vou remover");
             this.agenda.removeContact(nome,numTelm,email);
 
         }
@@ -91,6 +92,7 @@ public class User implements Serializable
     {
         List<Slot> lista = new ArrayList<>();
         HashMap<LocalDateTime, Slot> slotsM = new HashMap<>();
+        
         slotsM = this.agenda.getSlotsPDia(diaHora);
         
         lista = slotsM.values().stream().collect(Collectors.toList());
@@ -106,7 +108,6 @@ public class User implements Serializable
     
     public void addReuniaoUser(LocalDateTime data, LocalTime inicio, LocalTime fim, String nome, String local)
     {
-        System.out.println("Nome no User: "+nome);
         this.agenda.addSlot(data, inicio, fim, nome, local);
     }
     

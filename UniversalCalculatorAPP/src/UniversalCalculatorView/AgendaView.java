@@ -172,7 +172,7 @@ public class AgendaView{
         LocalTime inicio = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 3);
         LocalTime fim = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 4);
         String nome = (String) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 0);
-        
+
         this.view.apagaReuniaoToController(datAux,nome, inicio,fim);
         this.reloadTable();
     }                                                   
@@ -187,7 +187,7 @@ public class AgendaView{
         LocalTime t = LocalTime.parse(hora);
         int minutos = Integer.parseInt(tamSlot);
         int num = Integer.parseInt(numSlots);
-
+        System.out.println(nome);
         view.addReuniaoToController(o,nome ,local, t, minutos, num);
     }
     

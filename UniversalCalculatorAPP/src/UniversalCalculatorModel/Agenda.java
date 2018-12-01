@@ -91,10 +91,9 @@ public class Agenda implements Serializable
     // Método para remover Contacto
     public void removeContact(String nom, String numT, String email)
     {
-        Contacto cont = new Contacto(nom,numT,email);
         List<Contacto> lista = this.contactos.stream()
-                                             .filter(c -> !c.equals(cont))
-                                             .collect(Collectors.toList());
+                                 .filter(c -> !(c.getNome().equals(nom) && c.getNumTelm().equals(numT) && c.getEmail().equals(email)))
+                                 .collect(Collectors.toList());
         
         this.setContactos(lista);
     }

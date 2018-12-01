@@ -90,6 +90,7 @@ public class Controller
     // Reuniões
     public void addReuniaoToModel(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
     {
+        System.out.println("Reunião To model: " + nome);
         this.model.addReuniao(o, nome, local, hora, tamSlot, numSlots);
     }
     
@@ -100,6 +101,11 @@ public class Controller
         
     public List<Slot> reunioesToView()
     {
+        List<Slot> reunioes = this.model.reunioesParaODia();
+        if(reunioes.size() > 0)
+        {
+            System.out.println(reunioes.get(0).getNomeSlot());
+        }
         return this.model.reunioesParaODia();
     }
     ///////////////////////////////////////////////////

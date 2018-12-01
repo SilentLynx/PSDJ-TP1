@@ -8,6 +8,11 @@ public class Contacto implements Serializable
     private String nome;
     private String email;
 
+    public static Contacto of (String numTelm, String nome, String email)
+    {
+        return new Contacto(numTelm,nome,email);
+    }
+    
     public Contacto(String numTelm, String nome, String email) {
         this.numTelm = numTelm;
         this.nome = nome;
