@@ -20,12 +20,13 @@ public class TimeZone {
           
           if(check == true)
           {
-              odt = o.toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(Instant.now())).with(t);
-              ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(offsetFrom)).toLocalDateTime();
+              ldt = LocalDateTime.ofInstant(o.toInstant(), ZoneId.systemDefault()).with(t);  //o.toInstant().atOffset(ZoneId.systemDefault().getRules().getOffset(Instant.now())).with(t);
+              ldt = ldt.plusHours(offsetTo - (ZoneId.systemDefault().getRules().getOffset(Instant.now()).getTotalSeconds() / 3600));//odt.withOffsetSameInstant(ZoneOffset.ofHours(offsetTo)).toLocalDateTime();
           }
           else { 
-              odt = o.toInstant().atOffset(ZoneOffset.UTC).with(t);
-              ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(offsetTo - offsetFrom)).toLocalDateTime();
+              ldt = LocalDateTime.ofInstant(o.toInstant(), ZoneId.systemDefault()).with(t);//odt = o.toInstant().atOffset(ZoneOffset.UTC).with(t);
+                                //odt = OffsetDateTime.parse(o.toString() + "T" + t.toString() + String.valueOf(offsetFrom));
+              ldt = ldt.plusHours(offsetTo - offsetFrom);//ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(offsetTo)).toLocalDateTime();
           }
           
           return ldt.toString();
