@@ -15,24 +15,20 @@ public abstract class View
     Controller control;
     private MainPageView mainPageView;
     private final AgendaView agendaView;
-    private ContactEdit contactEdit;
     private ContactosView contactosView;
     private DateCalculatorView dateCalcView;
     private LoginPageView loginView;
     private RegisterUserPageView registUser;
-    private ReuniaoEditView reuniaoEdit;
     private TimeZoneView timezoneView;
 
     public View() throws FileNotFoundException
     {
         this.control = new Controller();
         this.agendaView = new AgendaView();
-        this.contactEdit = new ContactEdit();
         this.contactosView = new ContactosView();
         this.dateCalcView = new DateCalculatorView();
         this.registUser = new RegisterUserPageView();
         this.timezoneView = new TimeZoneView();
-        this.reuniaoEdit = new ReuniaoEditView();
         this.loginView = new LoginPageView();
         this.mainPageView = new MainPageView();
     }
@@ -48,13 +44,7 @@ public abstract class View
         this.timezoneView.setView(this);
         this.timezoneView.myFrame.setVisible(true); 
     }
-    
-    public void openReuniaoEdit()
-    {        
-        this.reuniaoEdit.setView(this);
-        this.reuniaoEdit.myFrame.setVisible(true);
-    }
-    
+        
     public void openMainPage()
     {
         this.mainPageView.setView(this);
@@ -68,13 +58,7 @@ public abstract class View
         this.contactosView.preencheTabela(lista);
         this.contactosView.myFrame.setVisible(true);
     }
-    
-    public void openContactEdit()
-    {
-        this.contactEdit.setView(this);
-        this.contactEdit.myFrame.setVisible(true);
-    }
-    
+        
     public void openLoginPage()
     {
         this.loginView.setView(this);
@@ -92,7 +76,7 @@ public abstract class View
         this.agendaView.setView(this);
         List<Slot> lista = this.control.reunioesToView();
         this.agendaView.preencheTabela(lista);
-        this.agendaView.myFrame.setVisible(true);
+        this.agendaView.myFrameMain.setVisible(true);
     }
     
     public void openDateTime()
