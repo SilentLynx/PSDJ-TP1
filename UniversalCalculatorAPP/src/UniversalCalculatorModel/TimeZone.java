@@ -29,7 +29,14 @@ public class TimeZone {
               ldt = ldt.plusHours(offsetTo - offsetFrom);//ldt = odt.withOffsetSameInstant(ZoneOffset.ofHours(offsetTo)).toLocalDateTime();
           }
           
-          return ldt.toString();
+          StringBuilder sb = new StringBuilder();
+          sb.append(ldt.toLocalTime().toString());
+          sb.append(" do dia ");
+          sb.append(ldt.getDayOfMonth()).append("/");
+          sb.append(ldt.getMonthValue()).append("/");
+          sb.append(ldt.getYear());
+          
+          return sb.toString();
     }
     
     
