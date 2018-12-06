@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.time.LocalTime;
 import java.util.Date;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class TimeZoneView {
     
@@ -30,7 +31,7 @@ public class TimeZoneView {
      * Creates new form TimeZoneView
      */
     public TimeZoneView() {
-        this.myFrame = new JFrame("TimeZoneView");
+        this.myFrame = new JFrame("Calculadora UTC");
         initComponents();
     }
 
@@ -72,6 +73,7 @@ public class TimeZoneView {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel3.setText("Time");
 
         timeTF.addActionListener(new java.awt.event.ActionListener() {
@@ -80,10 +82,13 @@ public class TimeZoneView {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel4.setText("From");
 
+        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel5.setText("To");
 
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel6.setText("(24 Hours, example 15:00:00)");
 
         fromCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-12", "-11", "-10", "-9", "-8", "-7", "-6", "-5", "-4", "-3", "-2", "-1", "0", "+1", "+2", "+3", "+4", "+5", "+6", "+7", "+8", "+9", "+10", "+11", "+12" }));
@@ -114,6 +119,7 @@ public class TimeZoneView {
             }
         });
 
+        jCheckBox1.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jCheckBox1.setText("Use local UTC");
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -226,16 +232,23 @@ public class TimeZoneView {
     
     private void calcularButtonActionPerformed(ActionEvent evt) 
     {
-        Date o = this.datePicker.getDate();
-        String cbFrom = (String) this.fromCB.getSelectedItem();
-        String cbTo = (String) this.toCB.getSelectedItem();
-        int from = Integer.parseInt(cbFrom);
-        int to = Integer.parseInt(cbTo);
-        boolean check = this.jCheckBox1.isSelected();
-        String time = this.timeTF.getText();
-        LocalTime t = LocalTime.parse(this.timeTF.getText());
-        
-        String res = view.control.controllerToModelTimeZone(o,t,from, to , check);
-        this.ConvertedDateTime.setText(res);
+        if(this.datePicker.getDate() != null && !this.timeTF.getText().equals(""))
+        {
+            Date o = this.datePicker.getDate();
+            String cbFrom = (String) this.fromCB.getSelectedItem();
+            String cbTo = (String) this.toCB.getSelectedItem();
+            int from = Integer.parseInt(cbFrom);
+            int to = Integer.parseInt(cbTo);
+            boolean check = this.jCheckBox1.isSelected();
+            String time = this.timeTF.getText();
+            LocalTime t = LocalTime.parse(this.timeTF.getText());
+
+            String res = view.control.controllerToModelTimeZone(o,t,from, to , check);
+            this.ConvertedDateTime.setText(res);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Verifique o Input");
+        }
     }
 }

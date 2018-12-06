@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class DateCalculatorView{
      // Variables declaration - do not modify                     
@@ -38,8 +39,12 @@ public class DateCalculatorView{
      * Creates new form DateCalculatorView
      */
     public DateCalculatorView() {
-        this.myFrame = new JFrame("DateCalculatorView");
+        this.myFrame = new JFrame("Calculadora de Datas");
         initComponents();
+        this.mesesTF.setText("0");
+        this.semanasTF.setText("0");
+        this.diasTF.setText("0");
+        this.anosTF.setText("0");
     }
     
     public void setView(View view)
@@ -107,14 +112,19 @@ public class DateCalculatorView{
         
         minusPlusCB.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "+", "-" }));
 
+        jLabel5.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 14));
         jLabel5.setText("Date & Time Calculator");
         
+        jLabel6.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel6.setText("Anos");
 
+        jLabel7.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel7.setText("Meses");
 
+        jLabel8.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel8.setText("Semanas");
 
+        jLabel9.setFont(new java.awt.Font("Copperplate Gothic Light", 0, 12));
         jLabel9.setText("Dias");
 
         
@@ -245,19 +255,26 @@ public class DateCalculatorView{
 
     private void calcularButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException  
     {
-        //Calculo em Anos
-        if(timeCB.getSelectedItem().equals("Anos")){
-            answerTF.setText(view.viewToControllerAnos(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+        if(this.jXDatePicker1.getDate() != null && this.jXDatePicker2.getDate() != null)
+        {
+            //Calculo em Anos
+            if(timeCB.getSelectedItem().equals("Anos")){
+                answerTF.setText(view.viewToControllerAnos(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+            }
+
+            //Calculo em Meses
+            else if(timeCB.getSelectedItem().equals("Meses")){
+               answerTF.setText(view.viewToControllerMeses(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+            }
+
+            //Calculo em Dias
+            else if(timeCB.getSelectedItem().equals("Dias")){
+                answerTF.setText(view.viewToControllerDias(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+            }
         }
-        
-        //Calculo em Meses
-        else if(timeCB.getSelectedItem().equals("Meses")){
-           answerTF.setText(view.viewToControllerMeses(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
-        }
-        
-        //Calculo em Dias
-        else if(timeCB.getSelectedItem().equals("Dias")){
-            answerTF.setText(view.viewToControllerDias(jXDatePicker1.getDate(), jXDatePicker2.getDate()));
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Verifique o Input");
         }
     } 
     
@@ -268,13 +285,20 @@ public class DateCalculatorView{
         int meses = 0;
         int anos = 0;
         
-        if(!anosTF.getText().equals("")) anos = Integer.parseInt(anosTF.getText());
-        if(!mesesTF.getText().equals("")) meses = Integer.parseInt(mesesTF.getText());
-        if(!semanasTF.getText().equals("")) semanas = Integer.parseInt(semanasTF.getText());
-        if(!diasTF.getText().equals("")) dias = Integer.parseInt(diasTF.getText());
-        
-        if(minusPlusCB.getSelectedItem().equals("+")) answerTF2.setText(view.viewToControllerSomaDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
-        if(minusPlusCB.getSelectedItem().equals("-")) answerTF2.setText(view.viewToControllerSubtraiDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+        if(this.jXDatePicker3.getDate() != null)
+        {
+            if(!anosTF.getText().equals("")) anos = Integer.parseInt(anosTF.getText());
+            if(!mesesTF.getText().equals("")) meses = Integer.parseInt(mesesTF.getText());
+            if(!semanasTF.getText().equals("")) semanas = Integer.parseInt(semanasTF.getText());
+            if(!diasTF.getText().equals("")) dias = Integer.parseInt(diasTF.getText());
+            
+            if(minusPlusCB.getSelectedItem().equals("+")) answerTF2.setText(view.viewToControllerSomaDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+            if(minusPlusCB.getSelectedItem().equals("-")) answerTF2.setText(view.viewToControllerSubtraiDateTime(jXDatePicker3.getDate(), dias, semanas, meses, anos));
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Verifique o Input");
+        }
     }     
 
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                

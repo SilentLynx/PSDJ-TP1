@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AgendaView{
@@ -51,8 +52,8 @@ public class AgendaView{
      * Creates new form AgendaFrame
      */
     public AgendaView() {
-        this.myFrameMain = new JFrame("AgendaView");
-        this.myFrame = new JFrame("ReuniaoEditView");
+        this.myFrameMain = new JFrame("Agenda");
+        this.myFrame = new JFrame("Nova Reunião");
         initComponentsMain();
         initComponents();
     }
@@ -344,18 +345,30 @@ public class AgendaView{
 
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) 
     {                                                
-        this.myFrameMain.setVisible(false);
+        myFrameMain.setVisible(false);
+        view.exitToController();
+        view.openLoginPage();
     }                                               
 
     private void apagarReuniaoButtonActionPerformed(java.awt.event.ActionEvent evt) throws ParseException 
-    {                                                    
-        LocalDate datAux = (LocalDate) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 2);
-        LocalTime inicio = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 3);
-        LocalTime fim = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 4);
-        String nome = (String) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 0);
-
-        this.view.apagaReuniaoToController(datAux,nome, inicio,fim);
-        this.reloadTable();
+    {                                                           
+        if(this.mainTable.getSelectedRow() == -1)
+        {           
+            JOptionPane.showMessageDialog(null, "Selecione uma reunião");
+        }
+        else
+        {
+            LocalDate datAux = (LocalDate) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 2);
+            LocalTime inicio = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 3);
+            LocalTime fim = (LocalTime) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 4);
+            String nome = (String) this.mainTable.getModel().getValueAt(mainTable.getSelectedRow(), 0);
+            
+            if(JOptionPane.showConfirmDialog(null, "Deseja proceder?") == 0)
+            {
+                this.view.apagaReuniaoToController(datAux,nome, inicio,fim);
+                this.reloadTable();
+            }
+        }
     }                                                   
 
     private void novaReuniaoButtonActionPerformed(java.awt.event.ActionEvent evt) 

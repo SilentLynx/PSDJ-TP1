@@ -20,7 +20,7 @@ public class MainPageView
      * Creates new form MainPage
      */
     public MainPageView() {
-        this.myFrame = new JFrame("MainPageView");
+        this.myFrame = new JFrame();
         initComponents();
     }
     
@@ -42,7 +42,7 @@ public class MainPageView
         myFrame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         myFrame.setFocusTraversalPolicyProvider(true);
 
-        exitButton.setText("Logout");
+        exitButton.setText("Sair");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -115,19 +115,17 @@ public class MainPageView
     }// </editor-fold>                        
 
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        myFrame.setVisible(false);
-        view.exitToController();
-        view.openLoginPage();
+        System.out.println("Fim da Aplicação >> " + java.time.LocalDateTime.now());
+        System.exit(0);
     }                                          
 
     private void DateTimeActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        this.myFrame.setVisible(false);
         view.openDateTime();
         
     }
     
      private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-         view.openAgendaViewPage();
+         view.openLoginPage();
     }
      
     private void jButton2ActionPerformed(ActionEvent evt) 

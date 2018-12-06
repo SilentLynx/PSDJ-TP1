@@ -106,7 +106,6 @@ public class User implements Serializable
     
     public void addReuniaoUser(LocalDateTime data, LocalTime inicio, LocalTime fim, String nome, String local)
     {
-        System.out.println("Nome no User: " + nome);
         this.agenda.addSlot(data, inicio, fim, nome, local);
     }
     

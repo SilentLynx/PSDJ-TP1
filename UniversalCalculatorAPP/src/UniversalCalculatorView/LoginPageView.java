@@ -23,7 +23,7 @@ public class LoginPageView{
     
     public LoginPageView() 
     {
-        this.myFrame = new JFrame("LoginPageView");
+        this.myFrame = new JFrame("Login");
         initComponents();
     }
 
@@ -73,7 +73,7 @@ public class LoginPageView{
             }
         });
 
-        exitButton.setText("Sair");
+        exitButton.setText("Regressar");
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -147,7 +147,9 @@ public class LoginPageView{
     }
     
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        System.out.println("Fim da Aplicação >> " + java.time.LocalDateTime.now());
-        System.exit(0);
+        this.passwordTF.setText("");
+        this.userNameTF.setText("");
+        this.myFrame.setVisible(false);
+        
     }                                          
 }

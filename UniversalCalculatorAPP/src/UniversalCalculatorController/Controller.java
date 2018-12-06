@@ -36,7 +36,7 @@ public class Controller
     // Start Flow da aplicação
     public void startFlow() 
     {
-        view.openLoginPage();
+        view.openMainPage();
     }
     ///////////////////////////////////////////////////
     
@@ -74,7 +74,12 @@ public class Controller
     // Contactos
     public void addContact(String nome, String telf, String email)
     {
-        model.adicionarContact(telf, email, nome);
+       boolean res = model.adicionarContact(telf, email, nome);
+       
+       if(!res)
+       {
+           JOptionPane.showMessageDialog(null, "Contacto já existente");
+       }
     }
     
     public void deleteContact(String nome, String telf, String email)
@@ -90,7 +95,12 @@ public class Controller
     // Reuniões
     public void addReuniaoToModel(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
     {
-        this.model.addReuniao(o, nome, local, hora, tamSlot, numSlots);
+        boolean res = this.model.addReuniao(o, nome, local, hora, tamSlot, numSlots);
+        
+        if(!res)
+        {
+            JOptionPane.showMessageDialog(null, "Slot ocupado");
+        }
     }
     
     public void deleteReuniaoToModel(Date o, String nome, LocalTime inicio, LocalTime fim)
@@ -110,7 +120,7 @@ public class Controller
         View v = views;
         if(model.login(username, password))
         {
-            v.openMainPage();
+            v.openAgendaViewPage();
         }
         else
         {

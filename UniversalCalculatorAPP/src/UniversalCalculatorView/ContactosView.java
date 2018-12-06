@@ -4,6 +4,7 @@ import UniversalCalculatorModel.Contacto;
 import java.io.FileNotFoundException;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ContactosView {
@@ -38,8 +39,8 @@ public class ContactosView {
      * @throws java.io.FileNotFoundException
      */
     public ContactosView() throws FileNotFoundException{
-        this.myFrame = new JFrame("ContactosView");
-        this.myFrameEdit = new JFrame("ContactoEdit");
+        this.myFrame = new JFrame("Contactos");
+        this.myFrameEdit = new JFrame("Novo Contacto");
         initComponentsView();
         initComponents();
     }
@@ -292,12 +293,23 @@ public class ContactosView {
 
     private void apagarContactoButtonActionPerformed(java.awt.event.ActionEvent evt) 
     {
-        String nome = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
-        String telf = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
-        String email = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2);
-        
-        this.view.deleteContactToController(nome, telf, email);
-        this.reloadTable();
+        if(this.jTable1.getSelectedRow() == -1)
+        {           
+            JOptionPane.showMessageDialog(null, "Selecione um contacto");
+        }
+        else
+        {
+            String nome = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 0);
+            String telf = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 1);
+            String email = (String) this.jTable1.getModel().getValueAt(jTable1.getSelectedRow(), 2);
+
+            
+            if(JOptionPane.showConfirmDialog(null, "Deseja proceder?") == 0)
+            {
+                this.view.deleteContactToController(nome, telf, email);
+                this.reloadTable();
+            }
+        }
     }
     
     public void addContact(String nome,String telf,String email)

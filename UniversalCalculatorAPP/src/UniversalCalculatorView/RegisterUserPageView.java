@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class RegisterUserPageView{
 
@@ -22,7 +23,7 @@ public class RegisterUserPageView{
     // End of variables declaration   
 
     public RegisterUserPageView() {
-        this.myFrame = new JFrame("RegisterUserPageView");
+        this.myFrame = new JFrame("Novo Utilizador");
         initComponents();
     }
     
@@ -131,9 +132,17 @@ public class RegisterUserPageView{
     }// </editor-fold>  
 
     private void registButtonActionPerformed(java.awt.event.ActionEvent evt) throws FileNotFoundException {
-        view.registarUtilizador(usernameTF.getText(), emailTF.getText(), passwordTF.getText());
-        this.myFrame.setVisible(false);
-        view.openLoginPage();
+        if(!this.usernameTF.getText().equals("") || !this.passwordTF.getText().equals("") || !this.emailTF.getText().equals(""))
+        {   
+            view.registarUtilizador(usernameTF.getText(), emailTF.getText(), passwordTF.getText());
+            this.myFrame.setVisible(false);
+            view.openLoginPage();
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Verifique o Input");
+
+        }
     }
     
     private void regressarButtonActionPerformed(java.awt.event.ActionEvent evt) {                                                

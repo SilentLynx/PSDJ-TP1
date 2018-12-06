@@ -9,6 +9,7 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -78,14 +79,30 @@ public final class Model
     ///////////////////////////////////////////////////
     
     // Métodos para adicionar contactos ao utilizador
-    public void adicionarContact(String numTelm, String email, String nome)
+    public boolean adicionarContact(String numTelm, String email, String nome)
     {
-       this.users.getUser(this.currentUser).editContact("Adicionar",numTelm,email,nome);
-       try {
-            this.saveState();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       List<Contacto> listaC = this.users.getUser(this.currentUser).getContactos();
+       boolean ret = true;
+       
+       for(Contacto c : listaC)
+       {
+           if(c.getNome().equals(nome) && c.getNumTelm().equals(numTelm) && c.getEmail().equals(email))
+           {
+               ret = false;
+           }           
+       }
+       
+       if(ret)
+       {
+           this.users.getUser(this.currentUser).editContact("Adicionar",numTelm,email,nome);
+           try {
+                 this.saveState();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       }
+       
+       return ret;
     }
     
     public void removerContact(String numTelm, String email, String nome)
@@ -173,18 +190,32 @@ public final class Model
     }
         
     // Reuniões
-    public void addReuniao(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
+    public boolean addReuniao(Date o, String nome, String local, LocalTime hora, int tamSlot, int numSlots)
     {
          LocalDate date = o.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
          LocalDateTime diaHora = LocalDateTime.of(date, hora);
          LocalTime fim = hora.plusMinutes(numSlots*tamSlot);
         
-         this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
-         try {
-            this.saveState();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         List<Slot> lista = this.users.getUser(this.currentUser).getReunioesParaDia(diaHora);
+         boolean podeMarcar = true;
+         for(Slot s : lista)
+         {
+             if(s.getData().isEqual(date) && !hora.isAfter(s.getFim()) && !fim.isBefore(hora))
+             {
+                podeMarcar = false;   
+             }
+         }
+         if(podeMarcar)
+         {
+            this.users.getUser(this.currentUser).addReuniaoUser(diaHora, hora, fim, nome, local);
+            try {
+                this.saveState();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         }
+         
+         return podeMarcar;
     }
     
     public void deleteReuniaoModel(Date o, String nome, LocalTime inicio, LocalTime fim)
