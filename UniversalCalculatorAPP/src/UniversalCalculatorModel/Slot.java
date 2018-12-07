@@ -35,35 +35,43 @@ public class Slot implements Serializable
         this.fim = s.getFim();
     }
         
-    public String getNomeSlot() {
+    public String getNomeSlot() 
+    {
         return this.nomeSlot;
     }
 
-    public void setNomeSlot(String nomeSlot) {
+    public void setNomeSlot(String nomeSlot)
+    {
         this.nomeSlot = nomeSlot;
     }
 
-    public String getLocal() {
+    public String getLocal() 
+    {
         return this.local;
     }
 
-    public void setLocal(String local) {
+    public void setLocal(String local) 
+    {
         this.local = local;
     }
 
-    public LocalTime getInicio() {
+    public LocalTime getInicio()
+    {
         return inicio;
     }
 
-    public void setInicio(LocalTime inicio) {
+    public void setInicio(LocalTime inicio) 
+    {
         this.inicio = inicio;
     }
 
-    public LocalTime getFim() {
+    public LocalTime getFim() 
+    {
         return fim;
     }
 
-    public void setFim(LocalTime fim) {
+    public void setFim(LocalTime fim) 
+    {
         this.fim = fim;
     }
     
@@ -82,7 +90,8 @@ public class Slot implements Serializable
     }
     
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "Slot{" + "nomeSlot=" + nomeSlot + ", local=" + local + ", inicio=" + inicio + ", fim=" + fim + '}';
     }
     

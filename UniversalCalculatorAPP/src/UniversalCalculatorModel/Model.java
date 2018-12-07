@@ -9,7 +9,6 @@ import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,11 +23,13 @@ public final class Model
         loadState();
     }
     
-    public Model(Model m){
+    public Model(Model m)
+    {
         this.users = m.getUsers();
     }
 
-    public Users getUsers() {
+    public Users getUsers() 
+    {
         return users;
     }
     
@@ -100,8 +101,7 @@ public final class Model
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
             }
-       }
-       
+       } 
        return ret;
     }
     
@@ -116,10 +116,10 @@ public final class Model
     }
     ///////////////////////////////////////////////////
     
-    // Métodos relativos ao cálculo de datas
+    //Métodos relativos ao cálculo de datas
     //Calculo da diferenca de Anos
-    public String diferencaAnos(Date data1, Date data2){
-        
+    public String diferencaAnos(Date data1, Date data2)
+    {   
         LocalDate date1 = data1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate date2 = data2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
@@ -129,8 +129,8 @@ public final class Model
     }
     
     //Calculo da diferenca de Meses
-    public String diferencaMeses(Date data1, Date data2){
-        
+    public String diferencaMeses(Date data1, Date data2)
+    {
         LocalDate date1 = data1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate date2 = data2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
@@ -140,8 +140,8 @@ public final class Model
     }
     
     //Calculo de diferenca de Dias
-    public String diferencaDias(Date data1, Date data2){
-        
+    public String diferencaDias(Date data1, Date data2)
+    {    
         LocalDate date1 = data1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate date2 = data2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
@@ -151,8 +151,8 @@ public final class Model
     }
     
     //Somar Dias, Semanas, Meses e Anos a uma Data
-    public String somaDateTime(Date data1, int dias, int semanas, int meses, int anos){
-        
+    public String somaDateTime(Date data1, int dias, int semanas, int meses, int anos)
+    {   
         LocalDate date1 = data1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         LocalDate resultado = date1.plusDays(dias).plusWeeks(semanas).plusMonths(meses).plusYears(anos);
@@ -161,7 +161,8 @@ public final class Model
     }
     
     //Subtrair Dias, Semanas, Meses e Anos a uma Data
-    public String subtraiDateTime(Date data1, int dias, int semanas, int meses, int anos){
+    public String subtraiDateTime(Date data1, int dias, int semanas, int meses, int anos)
+    {
         
         LocalDate date1 = data1.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         

@@ -14,7 +14,13 @@ public class Agenda implements Serializable
     private HashMap<LocalDateTime, Slot> slots;
     private List<Contacto> contactos;
 
-    public Agenda(HashMap<LocalDateTime, Slot> slots, List<Contacto> contactos) {
+    public static Agenda of (HashMap<LocalDateTime, Slot> slot, List<Contacto> contactos)
+    {
+        return new Agenda(slot,contactos);
+    }
+    
+    public Agenda(HashMap<LocalDateTime, Slot> slots, List<Contacto> contactos) 
+    {
         this.slots = slots;
         this.contactos = contactos;
     }
@@ -25,6 +31,12 @@ public class Agenda implements Serializable
         this.contactos = new ArrayList<>();
     }
 
+    public Agenda(Agenda a)
+    {
+        this.slots = a.getSlots();
+        this.contactos = a.getContactos();
+    }
+    
     // Métodos de get e set
     public HashMap<LocalDateTime, Slot> getSlots() 
     {
@@ -33,7 +45,8 @@ public class Agenda implements Serializable
         return slot;
     }
 
-    public void setSlots(HashMap<LocalDateTime, Slot> slot) {
+    public void setSlots(HashMap<LocalDateTime, Slot> slot) 
+    {
         this.slots = slot;
     }
 
@@ -53,7 +66,7 @@ public class Agenda implements Serializable
         List<Contacto> lista = new ArrayList<>();
         
         this.contactos.stream().forEach((c) -> {
-            lista.add(c);
+            lista.add(c.clone());
         });
         
         return lista;
@@ -108,5 +121,11 @@ public class Agenda implements Serializable
         });
         
         return map;
+    }
+    
+    @Override
+    public Agenda clone()
+    {
+        return new Agenda(this);
     }
 }

@@ -10,7 +10,6 @@ import java.io.ObjectOutputStream;
 
 public class UniversalCalculatorData 
 {
-    
     public static void saveUsers(String nomeFicheiro, Users users) throws FileNotFoundException
     {
        try

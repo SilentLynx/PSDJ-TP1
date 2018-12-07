@@ -13,7 +13,8 @@ public class Contacto implements Serializable
         return new Contacto(numTelm,nome,email);
     }
     
-    public Contacto(String numTelm, String nome, String email) {
+    public Contacto(String numTelm, String nome, String email) 
+    {
         this.numTelm = numTelm;
         this.nome = nome;
         this.email = email;
@@ -27,33 +28,40 @@ public class Contacto implements Serializable
     }
     
     // Métodos de get e set
-    public String getNumTelm() {
+    public String getNumTelm() 
+    {
         return numTelm;
     }
 
-    public void setNumTelm(String numTelm) {
+    public void setNumTelm(String numTelm) 
+    {
         this.numTelm = numTelm;
     }
 
-    public String getNome() {
+    public String getNome() 
+    {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) 
+    {
         this.nome = nome;
     }
 
-    public String getEmail() {
+    public String getEmail() 
+    {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) 
+    {
         this.email = email;
     } 
     ///////////////////////////////////////////////////
     
     @Override
-    public String toString() {
+    public String toString() 
+    {
         return "Contacto{" + "numTelm=" + numTelm + ", nome=" + nome + ", email=" + email + '}';
     }
     
@@ -66,16 +74,18 @@ public class Contacto implements Serializable
     @Override
     public boolean equals(Object o)
     {
-        boolean retorno = false;
         if(o==this)
         {
-            retorno = true;
+            return true;
         }
         if(o == null || this.getClass() != o.getClass())
         {
-            retorno = false;
+            return false;
         }
         Contacto c = (Contacto) o;
-        return (c.getNome().equals(this.getNome()) && c.getNumTelm().equals(this.getNumTelm()) && c.getEmail().equals(this.getEmail()));
+        
+        return (c.getNome().equals(this.getNome()) 
+                && c.getNumTelm().equals(this.getNumTelm()) 
+                && c.getEmail().equals(this.getEmail()));
     }
 }
